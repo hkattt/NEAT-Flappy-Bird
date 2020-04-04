@@ -28,10 +28,6 @@ class Game():
         self.all_sprites = pg.sprite.Group()
         self.birds = pg.sprite.Group()
         self.pipes = pg.sprite.Group()
-        
-        self.nets = []
-        self.ge = []
-        self.BIRDS = []
 
         # creates objects
         self.bird = Bird(WIDTH / 2, HEIGHT / 2, self)
