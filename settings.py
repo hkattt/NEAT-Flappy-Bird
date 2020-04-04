@@ -21,3 +21,6 @@ ANIMATION_TIME = 5
 
 # pipe settings
 PIPE_VEL = 5
+
+# base settings
+BASE_VEL = 5

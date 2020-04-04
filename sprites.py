@@ -139,6 +139,32 @@ class Pipe(pg.sprite.Sprite):
             return True
         return False
 
+class Base(pg.sprite.Sprite):
+    def __init__(self, y, game):
+        self.groups = game.all_sprites # sprite groups
+        # initiates sprite class
+        pg.sprite.Sprite.__init__(self, self.groups)
+        # copy of the game
+        self.game = game
+        self.width = BASE_IMG.get_width()
+        # x, y coordinates
+        self.x1 = 0
+        self.x2 = self.width
+        self.y = y
+        self.img = BASE_IMG
+
+    def update(self):
+        self.move()
+
+    def move(self):
+        self.x1 -= BASE_VEL
+        self.x2 -= BASE_VEL
+
+        if self.x1 + self.width < 0:
+            self.x1 = self.x2 + self.width
+
+        if self.x2 + self.width < 0:
+            self.x1 = self.x2 + self.width
 
 
 
