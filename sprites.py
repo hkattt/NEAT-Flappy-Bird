@@ -17,7 +17,7 @@ class Bird(pg.sprite.Sprite):
         # initiates sprite class
         pg.sprite.Sprite.__init__(self, self.groups)
         # copy of the game
-        self.game
+        self.game = game
         # x, y cooridnates
         self.x = x
         self.y = y
@@ -85,6 +85,10 @@ class Bird(pg.sprite.Sprite):
         # rotates it around the centre
         self.new_rect = self.rotated_img.get_rect(center = self.img.get_rect(topleft = (self.x, self.y)).center)
         # Creates an image mask for collisions
-        self.mask = pg.mask.from_surface(self.image)
+        self.mask = pg.mask.from_surface(self.img)
+
+    def update(self):
+        self.move()
+        self.draw()
 
         

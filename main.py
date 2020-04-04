@@ -20,20 +20,34 @@ class Game():
 
     def new(self):
         # sprite groups
-        self.all_sprites = pg.sprite.group()
-        self.birds = pg.sprite.group()
+        self.all_sprites = pg.sprite.Group()
+        self.birds = pg.sprite.Group()
         # creates objects
         self.bird = Bird(WIDTH / 2, HEIGHT / 2, self)
         self.run()
 
     def run(self):
-        playing = True
-        while playing:
+        self.playing = True
+        while self.playing:
+            self.update()
+            self.events()
             self.paint()
+
+    def update(self):
+        self.all_sprites.update()
+
+    def events(self):
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                self.playing = False
+                self.running= False
+                
     
     def paint(self):
+        background.blit(BG_IMG, (0, 0))
         for sprite in self.birds:
             self.background.blit(sprite.rotated_img, sprite.new_rect)
+        pg.display.update()
 
 game = Game()
 while game.running:
