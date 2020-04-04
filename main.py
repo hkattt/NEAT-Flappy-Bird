@@ -26,7 +26,8 @@ class Game():
         self.pipes = pg.sprite.Group()
         # creates objects
         self.bird = Bird(WIDTH / 2, HEIGHT / 2, self)
-        self.base = Base(350, self)
+        self.base = Base(400, self)
+        self.pipe = Pipe(300, self)
         self.run()
 
     def run(self):
@@ -49,6 +50,10 @@ class Game():
     def paint(self):
         # background image
         background.blit(BG_IMG, (0, 0))
+        # pipes
+        for pipe in self.pipes:
+            background.blit(pipe.pipe_top, (pipe.x, pipe.top))
+            background.blit(pipe.pipe_bottom, (pipe.x, pipe.bottom))
         # base
         background.blit(self.base.img, (self.base.x1, self.base.y))
         background.blit(self.base.img, (self.base.x2, self.base.y))

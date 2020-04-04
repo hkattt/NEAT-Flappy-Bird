@@ -113,6 +113,11 @@ class Pipe(pg.sprite.Sprite):
         self.passed = False
         self.set_height()
 
+    def update(self):
+        self.move()
+        if self.collisions():
+            pass
+
     def set_height(self):
         self.height = random.randrange(50, 300)
         self.top = self.height - self.pipe_top.get_height()
@@ -127,8 +132,8 @@ class Pipe(pg.sprite.Sprite):
         bottom_mask = pg.mask.from_surface(self.pipe_bottom)
 
         # offset between the masks
-        top_offset = (self.x - self.game.bird.x, self.top - round(self.game.bird.y))
-        bottom_offset = (self.x - self.game.bird.x, self.bottom - round(self.game.bird.y))
+        top_offset = (self.x - round(self.game.bird.x), self.top - round(self.game.bird.y))
+        bottom_offset = (self.x - round(self.game.bird.x), self.bottom - round(self.game.bird.y))
 
         # calculates the point of collision
         point_of_collision_t = self.game.bird.mask.overlap(top_mask, top_offset)
@@ -164,7 +169,7 @@ class Base(pg.sprite.Sprite):
             self.x1 = self.x2 + self.width
 
         if self.x2 + self.width < 0:
-            self.x1 = self.x2 + self.width
+            self.x2 = self.x1 + self.width
 
 
 
