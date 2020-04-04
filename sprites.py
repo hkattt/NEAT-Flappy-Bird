@@ -91,4 +91,13 @@ class Bird(pg.sprite.Sprite):
         # Creates an image mask for collisions
         self.mask = pg.mask.from_surface(self.img)
 
-        
+class Pipe(pg.sprite.Sprite):
+    def __init__(self, x, y, game):
+        self.groups = game.all_sprites, game.pipes # pipe groups
+        # initiates sprite class
+        pg.sprite.Sprite.__init__(self, self.groups)
+        # copy of the game
+        self.game = game
+        # x, y cooridantes
+        self.x = x
+        self.y = y

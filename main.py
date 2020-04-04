@@ -23,6 +23,7 @@ class Game():
         # sprite groups
         self.all_sprites = pg.sprite.Group()
         self.birds = pg.sprite.Group()
+        self.pipes = pg.sprite.Group()
         # creates objects
         self.bird = Bird(WIDTH / 2, HEIGHT / 2, self)
         self.run()
