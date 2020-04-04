@@ -35,7 +35,7 @@ class Bird(pg.sprite.Sprite):
         self.rect = self.img.get_rect()
 
     def update(self):
-        self.move()
+        #self.move()
         self.animation()
 
     def jump(self):
@@ -171,7 +171,8 @@ class Base(pg.sprite.Sprite):
     def update(self):
         self.move()
         if self.collisions():
-            pass
+            self.game.playing = False
+            self.game.running = False
 
     def move(self):
         self.x1 -= BASE_VEL
@@ -184,7 +185,7 @@ class Base(pg.sprite.Sprite):
             self.x2 = self.x1 + self.width
 
     def collisions(self):
-        if self.game.bird.y + self.game.bird.img.get_height() > self.x1:
+        if self.game.bird.y + self.game.bird.img.get_height() > self.y:
             return True
 
     

@@ -19,6 +19,7 @@ class Game():
         pg.display.set_caption("Flappy Bird")
         self.clock = pg.time.Clock()
         self.score = 0
+        self.score_font = pg.font.SysFont("comicsans", 30)
 
     def new(self):
         # sprite groups
@@ -61,6 +62,9 @@ class Game():
         # bird
         for sprite in self.birds:
             self.background.blit(sprite.rotated_img, sprite.new_rect)
+         # score
+        text = self.score_font.render("Score: " + str(self.score), 1, WHITE)
+        background.blit(text, (WIDTH - 10 - text.get_width(), 10))
         pg.display.update()
 
 game = Game()
