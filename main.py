@@ -18,6 +18,7 @@ class Game():
         self.background = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption("Flappy Bird")
         self.clock = pg.time.Clock()
+        self.score = 0
 
     def new(self):
         # sprite groups
@@ -27,7 +28,7 @@ class Game():
         # creates objects
         self.bird = Bird(WIDTH / 2, HEIGHT / 2, self)
         self.base = Base(400, self)
-        self.pipe = Pipe(300, self)
+        self.pipe = Pipe(400, self)
         self.run()
 
     def run(self):

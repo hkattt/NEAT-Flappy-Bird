@@ -102,7 +102,7 @@ class Pipe(pg.sprite.Sprite):
         # x coordinate
         self.x = x
         self.height = 0
-        self.gap = 50
+        self.gap = 100
         # keep track of each pipes position
         self.top = 0
         self.bottom = 0
@@ -115,11 +115,21 @@ class Pipe(pg.sprite.Sprite):
 
     def update(self):
         self.move()
+        # checks for a collision
         if self.collisions():
             pass
+        # removes the pipe if it is off the display
+        if self.x + PIPE_IMG.get_width() < 0:
+            self.game.all_sprites.remove(self)
+            self.game.pipes.remove(self)
+        # if the bird passed the pipe a new pipe is created
+        if not self.passed and self.x < self.game.bird.x:
+            self.game.score += 1
+            self.game.pipe = Pipe(400, self.game)
+            self.passed = True
 
     def set_height(self):
-        self.height = random.randrange(50, 300)
+        self.height = random.randrange(50, 260)
         self.top = self.height - self.pipe_top.get_height()
         self.bottom = self.height + self.gap
 
@@ -160,6 +170,8 @@ class Base(pg.sprite.Sprite):
 
     def update(self):
         self.move()
+        if self.collisions():
+            pass
 
     def move(self):
         self.x1 -= BASE_VEL
@@ -171,6 +183,8 @@ class Base(pg.sprite.Sprite):
         if self.x2 + self.width < 0:
             self.x2 = self.x1 + self.width
 
-
+    def collisions(self):
+        if self.game.bird.y + self.game.bird.img.get_height() > self.x1:
+            return True
 
     
