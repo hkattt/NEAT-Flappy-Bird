@@ -3,6 +3,7 @@
 # import modules
 import pygame as pg
 import random
+import neat
 # import files
 from settings import * 
 
@@ -35,7 +36,7 @@ class Bird(pg.sprite.Sprite):
         self.rect = self.img.get_rect()
 
     def update(self):
-        #self.move()
+        self.move()
         self.animation()
 
     def jump(self):
@@ -116,15 +117,14 @@ class Pipe(pg.sprite.Sprite):
     def update(self):
         self.move()
         # checks for a collision
-        if self.collisions():
-            pass
+        self.collisions()
+
         # removes the pipe if it is off the display
         if self.x + PIPE_IMG.get_width() < 0:
             self.game.all_sprites.remove(self)
             self.game.pipes.remove(self)
         # if the bird passed the pipe a new pipe is created
         if not self.passed and self.x < self.game.bird.x:
-            self.game.score += 1
             self.game.pipe = Pipe(400, self.game)
             self.passed = True
 
@@ -171,8 +171,7 @@ class Base(pg.sprite.Sprite):
     def update(self):
         self.move()
         if self.collisions():
-            self.game.playing = False
-            self.game.running = False
+            pass
 
     def move(self):
         self.x1 -= BASE_VEL
@@ -185,7 +184,7 @@ class Base(pg.sprite.Sprite):
             self.x2 = self.x1 + self.width
 
     def collisions(self):
-        if self.game.bird.y + self.game.bird.img.get_height() > self.y:
+        if self.game.bird.y + self.game.bird.img.get_height() > self.y or self.game.bird.y < 0:
             return True
 
     

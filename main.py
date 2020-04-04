@@ -3,6 +3,8 @@
 # importing modules
 import pygame as pg
 import random
+import os
+import neat
 # importing files
 from sprites import *
 from settings import *
@@ -26,6 +28,11 @@ class Game():
         self.all_sprites = pg.sprite.Group()
         self.birds = pg.sprite.Group()
         self.pipes = pg.sprite.Group()
+        
+        self.nets = []
+        self.ge = []
+        self.BIRDS = []
+
         # creates objects
         self.bird = Bird(WIDTH / 2, HEIGHT / 2, self)
         self.base = Base(400, self)
@@ -72,3 +79,4 @@ while game.running:
     game.new()
 pg.quit()
 quit()
+
