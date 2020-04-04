@@ -17,6 +17,7 @@ class Game():
         pg.init()
         self.background = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption("Flappy Bird")
+        self.clock = pg.time.Clock()
 
     def new(self):
         # sprite groups
@@ -29,6 +30,7 @@ class Game():
     def run(self):
         self.playing = True
         while self.playing:
+            self.clock.tick(FPS)
             self.update()
             self.events()
             self.paint()

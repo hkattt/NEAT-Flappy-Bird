@@ -6,10 +6,10 @@ import pygame as pg
 from settings import * 
 
 # sprite images
-BIRD_IMGS = [pg.transform.scale2x(pg.image.load("bird1.png")), pg.transform.scale2x(pg.image.load("bird2.png")), pg.transform.scale2x(pg.image.load("bird3.png"))]
-PIPE_IMG = pg.transform.scale2x(pg.image.load("pipe.png"))
-BASE_IMG = pg.transform.scale2x(pg.image.load("base.png"))
-BG_IMG = pg.transform.scale2x(pg.image.load("bg.png"))
+BIRD_IMGS = [pg.image.load("bird1.png"), pg.image.load("bird2.png"), pg.image.load("bird3.png")]
+PIPE_IMG = pg.image.load("pipe.png")
+BASE_IMG = pg.image.load("base.png")
+BG_IMG = pg.image.load("bg.png")
 
 class Bird(pg.sprite.Sprite):
     def __init__(self, x, y, game):
@@ -33,6 +33,10 @@ class Bird(pg.sprite.Sprite):
         self.img = BIRD_IMGS[0]
         self.rect = self.img.get_rect()
 
+    def update(self):
+        self.move()
+        self.animation()
+
     def jump(self):
         """ Makes the bird perfrom a jump """
         self.vel = -10.5
@@ -45,8 +49,8 @@ class Bird(pg.sprite.Sprite):
         # equation of motion
         displacement = self.vel * self.tick_count + 1.5 * self.tick_count**2
         # terminal velocity
-        if displacement >= 16:
-            displacement = 16
+        if displacement >= 10:
+            displacement = 10
 
         if displacement < 0:
             displacement = -2
@@ -59,7 +63,7 @@ class Bird(pg.sprite.Sprite):
             if self.tilt > -90:
                 self.tilt -= ROTATION_VEL
 
-    def draw(self):
+    def animation(self):
         self.img_count += 1
 
         # bird animation
@@ -86,9 +90,5 @@ class Bird(pg.sprite.Sprite):
         self.new_rect = self.rotated_img.get_rect(center = self.img.get_rect(topleft = (self.x, self.y)).center)
         # Creates an image mask for collisions
         self.mask = pg.mask.from_surface(self.img)
-
-    def update(self):
-        self.move()
-        self.draw()
 
         

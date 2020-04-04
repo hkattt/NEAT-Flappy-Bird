@@ -1,8 +1,11 @@
 # GAME SETTINGS
 
 # display window size
-WIDTH = 600
-HEIGHT = 800
+WIDTH = 288
+HEIGHT = 512
+
+# frames per second
+FPS = 30
 
 # colours
 WHITE = (255, 255, 255)
