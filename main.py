@@ -45,7 +45,6 @@ class Game():
                 self.playing = False
                 self.running= False
                 
-    
     def paint(self):
         background.blit(BG_IMG, (0, 0))
         for sprite in self.birds:
