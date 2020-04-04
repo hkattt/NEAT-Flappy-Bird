@@ -70,3 +70,5 @@ class Game():
 game = Game()
 while game.running:
     game.new()
+pg.quit()
+quit()
