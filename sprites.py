@@ -43,7 +43,7 @@ class Bird(pg.sprite.Sprite):
 
     def jump(self):
         """ Makes the bird perfrom a jump """
-        self.vel = -10.5
+        self.vel = -15.5
         self.tick_count = 0
         self.height = self.y
 
@@ -96,7 +96,7 @@ class Bird(pg.sprite.Sprite):
         self.mask = pg.mask.from_surface(self.img)
 
     def fitness_award(self):
-        self.game.ge[self.game.bird_indices.index(self)].fitness += 1
+        self.game.ge[self.game.bird_indices.index(self)].fitness += 0.1
 
     def neural_network_choice(self):
         # send bird location, top pipe location and bottom pipe location and determine from network whether to jump or not
@@ -104,6 +104,7 @@ class Bird(pg.sprite.Sprite):
 
         if output[0] > 0.5:  # we use a tanh activation function so result will be between -1 and 1. if over 0.5 jump
             self.jump()
+
 class Pipe(pg.sprite.Sprite):
     def __init__(self, x, game):
         self.groups = game.all_sprites, game.pipes # pipe groups
@@ -136,12 +137,12 @@ class Pipe(pg.sprite.Sprite):
             self.game.pipes.remove(self)
         # if the bird passed the pipe a new pipe is created
         if len(self.game.bird_indices) > 0:
-            if not self.passed and self.x < self.game.bird_indices[0].x:
+            if not self.passed and self.x + self.pipe_top.get_width() < self.game.bird_indices[0].x:
                 self.game.score += 1
                 # birds get awarded for passing a pipe
                 for genome in self.game.ge:
                     genome.fitness += 5
-                self.game.pipe = Pipe(400, self.game)
+                self.game.pipe = Pipe(500, self.game)
                 self.passed = True
             
     def set_height(self):
@@ -209,6 +210,8 @@ class Base(pg.sprite.Sprite):
     def collisions(self):
         for bird in self.game.birds:
             if bird.y + bird.img.get_height() > self.y or bird.y < 0:
+                # removes fitness
+                self.game.ge[self.game.bird_indices.index(bird)].fitness -= 1
                 # removes from list
                 self.game.nets.pop(self.game.bird_indices.index(bird))
                 self.game.ge.pop(self.game.bird_indices.index(bird))

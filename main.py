@@ -46,7 +46,7 @@ class Game():
 
         # creates objects
         self.base = Base(400, self)
-        self.pipe = Pipe(400, self)
+        self.pipe = Pipe(500, self)
         self.run()
 
     def run(self):
@@ -64,7 +64,8 @@ class Game():
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.playing = False
-                self.running= False
+                pg.quit()
+                quit()
                 
     def paint(self):
         # background image
@@ -85,6 +86,7 @@ class Game():
         # generation
         generation = self.font.render("Generation: " + str(self.generation), 1, WHITE)
         background.blit(generation, (10, 10))
+
         pg.display.update()
 
     def reset(self):
